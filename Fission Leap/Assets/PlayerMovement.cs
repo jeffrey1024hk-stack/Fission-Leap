@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     public bool climbing;
     public float climbSpeed = 3;
     public bool touchingClimable;
+    public bool lookingRight;
+    Animator anim;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         rb.gravityScale = 1;
         climbSpeed = 5;
         touchingClimable = false;
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -54,12 +57,25 @@ public class PlayerMovement : MonoBehaviour
         {
             playerPosition.x += walkSpeed * Time.deltaTime;
             transform.position = playerPosition;
+            anim.SetBool("MovingRight", true);
+            anim.SetBool("MovingLeft", false);
+            anim.SetBool("IsIdle", false);
 
         }
-        else if (Input.GetAxis("Horizontal") < 0)
+        if (Input.GetAxis("Horizontal") < 0)
         {
             playerPosition.x -= walkSpeed * Time.deltaTime;
             transform.position = playerPosition;
+            anim.SetBool("MovingLeft", true);
+            anim.SetBool("MovingRight", false);
+            anim.SetBool("IsIdle", false);
+
+        }
+        if (Input.GetAxis("Horizontal") == 0)
+        {
+            anim.SetBool("MovingRight", false);
+            anim.SetBool("MovingLeft", false);
+            anim.SetBool("IsIdle", true);
         }
         if (climbing == true)
         {
@@ -131,7 +147,13 @@ public class PlayerMovement : MonoBehaviour
         {
             UIbehaviour.nextLevel();
         }
-
+        if (touchingFloor == false)
+        {
+            anim.SetBool("IsFalling", true);
+        } else
+        {
+            anim.SetBool("IsFalling", false);
+        }
     }
 
     private void FixedUpdate()
@@ -195,5 +217,13 @@ public class PlayerMovement : MonoBehaviour
             climbing = false;
             Debug.Log("Can't climb anymore");
         }
+    }
+    private void DirectionRight()
+    {
+        anim.SetBool("LookingRight", true);
+    }
+    private void DirectionLeft()
+    {
+        anim.SetBool("LookingRight", false);
     }
 }
