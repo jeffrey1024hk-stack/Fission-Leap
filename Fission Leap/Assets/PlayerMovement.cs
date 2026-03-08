@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.rotation = Quaternion.identity;
         if (touchingClimable == true /*&& Input.GetKeyDown(KeyCode.F)*/)
         {
             climbing = true;
@@ -60,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("MovingRight", true);
             anim.SetBool("MovingLeft", false);
             anim.SetBool("IsIdle", false);
+            anim.SetBool("LookingRight", true);
 
         }
         if (Input.GetAxis("Horizontal") < 0)
@@ -69,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("MovingLeft", true);
             anim.SetBool("MovingRight", false);
             anim.SetBool("IsIdle", false);
-
+            anim.SetBool("LookingRight", false);
         }
         if (Input.GetAxis("Horizontal") == 0)
         {
