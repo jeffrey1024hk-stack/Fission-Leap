@@ -1839,6 +1839,7 @@ MonoBehaviour:
   climbing: 0
   climbSpeed: 0
   touchingClimable: 0
+  lookingRight: 0
 --- !u!95 &1620661374
 Animator:
   serializedVersion: 5

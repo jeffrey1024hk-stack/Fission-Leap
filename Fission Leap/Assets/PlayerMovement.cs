@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (touchingClimable == true && Input.GetKeyDown(KeyCode.F))
+        if (touchingClimable == true /*&& Input.GetKeyDown(KeyCode.F)*/)
         {
             climbing = true;
         }
@@ -134,9 +134,6 @@ public class PlayerMovement : MonoBehaviour
             health = maxHealth;
         }
         rb.velocity = new Vector2(0, rb.velocity.y);
-        //Sphere rotate when moving
-        //Delete when change to actual character sprite
-        transform.Rotate(0, 0, Input.GetAxis("Horizontal") * Time.deltaTime);
 
         //testing keybinds (get rid of for actual release)
         if (Input.GetKeyDown(KeyCode.Slash))
@@ -149,7 +146,10 @@ public class PlayerMovement : MonoBehaviour
         }
         if (touchingFloor == false)
         {
-            anim.SetBool("IsFalling", true);
+            if (touchingClimable == false)
+            {
+                anim.SetBool("IsFalling", true);
+            }
         } else
         {
             anim.SetBool("IsFalling", false);
