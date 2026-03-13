@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Threading;
 public class PlayerMovement : MonoBehaviour
 {
-    public Vector2 playerPosition;
+    public Vector3 playerPosition;
     public Rigidbody2D rb;
     [SerializeField]
     private float jumpForce;
@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
         gameOverCanvas.SetActive(false);
         jumpForce = 300;
-        walkSpeed = 35;
+        walkSpeed = 10.5f;
         maxHealth = 3;
         transform.position = SpawnPoint.transform.position;
         health = maxHealth;
@@ -43,17 +43,19 @@ public class PlayerMovement : MonoBehaviour
         climbSpeed = 5;
         touchingClimable = false;
         anim = GetComponent<Animator>();
+        anim.SetBool("LookingRight", true);
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.rotation = Quaternion.identity;
-        if (touchingClimable == true /*&& Input.GetKeyDown(KeyCode.F)*/)
+        if (touchingClimable == true && Input.GetKeyDown(KeyCode.F))
         {
             climbing = true;
         }
         playerPosition = transform.position;
+        playerPosition.z = -1;
         if (Input.GetAxis("Horizontal") > 0)
         {
             playerPosition.x += walkSpeed * Time.deltaTime;
@@ -90,6 +92,10 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.gravityScale = 1;
+        }
+        if (touchingClimable == false)
+        {
+            climbing = false;
         }
         if (climbing == false)
         {
@@ -146,16 +152,6 @@ public class PlayerMovement : MonoBehaviour
         {
             UIbehaviour.nextLevel();
         }
-        if (touchingFloor == false)
-        {
-            if (touchingClimable == false)
-            {
-                anim.SetBool("IsFalling", true);
-            }
-        } else
-        {
-            anim.SetBool("IsFalling", false);
-        }
     }
 
     private void FixedUpdate()
@@ -181,6 +177,7 @@ public class PlayerMovement : MonoBehaviour
         {
             touchingFloor = true;
             jumps = 0;
+            anim.SetBool("IsFalling", false);
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -188,6 +185,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Floor")
         {
             touchingFloor = false;
+            anim.SetBool("IsFalling", true);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -201,6 +199,10 @@ public class PlayerMovement : MonoBehaviour
         {
             score += 1;
             Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.tag == "Next Level")
+        {
+            UIbehaviour.nextLevel();
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -216,7 +218,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "Climable surface")
         {
-            climbing = false;
+            touchingClimable = false;
             Debug.Log("Can't climb anymore");
         }
     }
@@ -228,4 +230,5 @@ public class PlayerMovement : MonoBehaviour
     {
         anim.SetBool("LookingRight", false);
     }
+
 }

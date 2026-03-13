@@ -8,6 +8,7 @@ TagManager:
   - Kill box
   - 1 point giver
   - Climable surface
+  - Next Level
   layers:
   - Default
   - TransparentFX

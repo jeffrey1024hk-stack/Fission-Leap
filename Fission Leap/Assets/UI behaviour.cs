@@ -17,6 +17,8 @@ public class UIbehaviour : MonoBehaviour
     public Scene activeScene;
     public Scene nextScene;
     public Scene lastScene;
+    public int activeSceneBuildIndex;
+    public int nextSceneBuildIndex;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,13 +31,15 @@ public class UIbehaviour : MonoBehaviour
         healthText.text = "Health: " + PlayerMovement.health.ToString();
         scoreText.text = "Score: " + PlayerMovement.score.ToString();
         activeScene = SceneManager.GetActiveScene();
+        activeSceneBuildIndex = activeScene.buildIndex;
         try
         {
-            nextScene = SceneManager.GetSceneByBuildIndex(activeScene.buildIndex + 1);
+            nextSceneBuildIndex = activeSceneBuildIndex + 1;
+            //nextScene = SceneManager.GetSceneByBuildIndex(nextSceneBuildIndex);
         }
         catch
         {
-            //Debug.Log("On last level");
+            Debug.Log("On last level");
         }
         try
         {
@@ -55,10 +59,8 @@ public class UIbehaviour : MonoBehaviour
     }
     public void nextLevel()
     {
-        if (SceneManager.GetSceneByBuildIndex(nextScene.buildIndex) != null)
-        {
-            SceneManager.LoadScene(nextScene.buildIndex);
-        }
+        SceneManager.LoadScene(nextSceneBuildIndex);
+        SceneManager.UnloadScene(activeSceneBuildIndex - 1);
     }
     public void previousLevel()
     {

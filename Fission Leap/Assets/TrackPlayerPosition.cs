@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TrackPlayerPosition : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class TrackPlayerPosition : MonoBehaviour
     public GameObject Player;
     public Vector3 cameraPos;
     public float cameraPosY;
+    GameObject nextLevel;
+    Scene CurrentScene;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,14 +19,35 @@ public class TrackPlayerPosition : MonoBehaviour
     }
 
     // Update is called once per frame
+    private void Update()
+    {
+        CurrentScene = SceneManager.GetActiveScene();
+    }
     void LateUpdate()
     {
-        cameraPosY = Player.transform.position.y;
-        if (cameraPosY < 0)
+        nextLevel = GameObject.FindWithTag("Next Level");
+        cameraPos = Player.transform.position;
+
+        if (cameraPos.y < 2.29)
         {
-            cameraPosY = 0;
+            cameraPos.y = 2.29f;
         }
-        cameraPos = new Vector3 (Player.transform.position.x, cameraPosY, (float)-10);
+        if (cameraPos.x < -9.7)
+        {
+            cameraPos.x = -9.7f;
+        }
+        
+        if (CurrentScene.buildIndex == 0)
+        {
+            if (cameraPos.x > -1.36f)
+            {
+                cameraPos.x = -1.36f;
+                transform.position = cameraPos;
+            }
+        }
+
+        cameraPos = new Vector3 (cameraPos.x, cameraPos.y, (float)-10);
         transform.position = cameraPos;
     }
+    
 }
