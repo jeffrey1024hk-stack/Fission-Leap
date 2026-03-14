@@ -5,6 +5,7 @@ using TMPro;
 using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class UIbehaviour : MonoBehaviour
 {
@@ -57,10 +58,11 @@ public class UIbehaviour : MonoBehaviour
         PlayerMovement.score = 0;
         player.transform.position = PlayerMovement.SpawnPoint.transform.position;
     }
+
     public void nextLevel()
     {
         SceneManager.LoadScene(nextSceneBuildIndex);
-        SceneManager.UnloadScene(activeSceneBuildIndex - 1);
+        SceneManager.UnloadSceneAsync(activeSceneBuildIndex - 1);
     }
     public void previousLevel()
     {

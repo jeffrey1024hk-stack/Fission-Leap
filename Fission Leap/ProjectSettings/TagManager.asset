@@ -9,6 +9,8 @@ TagManager:
   - 1 point giver
   - Climable surface
   - Next Level
+  - Exit
+  - PlayAgain
   layers:
   - Default
   - TransparentFX

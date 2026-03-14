@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public bool touchingClimable;
     public bool lookingRight;
     Animator anim;
+    public bool TriggerPlayAgain;
     // Start is called before the first frame update
     void Start()
     {
@@ -203,6 +204,10 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Next Level")
         {
             UIbehaviour.nextLevel();
+        }
+        if (collision.gameObject.tag == "Exit")
+        {
+            TriggerPlayAgain = true;
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
