@@ -83,6 +83,10 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("MovingLeft", false);
             anim.SetBool("IsIdle", true);
         }
+        if (touchingFloor)
+        {
+            jumps = 0;
+        }
         if (climbing == true)
         {
             jumping = false;
@@ -123,7 +127,8 @@ public class PlayerMovement : MonoBehaviour
                 rb.gravityScale = 0;
                 rb.velocity = new Vector2(rb.velocity.x, 0);
             }
-        } else if (Input.GetKey(KeyCode.T))
+        }
+        if (Input.GetKey(KeyCode.T))
         {
             if (climbing == true)
             {
@@ -131,6 +136,14 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, 0);
             }
 
+        }
+        if (climbing)
+        {
+            anim.SetBool("Climbing", true);
+            anim.SetBool("IsFalling", false);
+        } else if (climbing == false)
+        {
+            anim.SetBool("Climbing", false);
         }
 
         if (UIbehaviour.score < 0)
@@ -153,6 +166,10 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tilde))
         {
             UIbehaviour.nextLevel();
+        }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            health = 999999;
         }
     }
 
@@ -195,6 +212,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Kill box")
         {
             transform.position = SpawnPoint.transform.position;
+            rb.velocity = new Vector2(0,0);
             health += -1;
         }
         if (collision.gameObject.tag == "1 point giver")

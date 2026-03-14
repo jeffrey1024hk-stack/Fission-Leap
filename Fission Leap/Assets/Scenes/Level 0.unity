@@ -2274,7 +2274,7 @@ GameObject:
   - component: {fileID: 1278067202}
   - component: {fileID: 1278067201}
   m_Layer: 5
-  m_Name: Score
+  m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2476,7 +2476,7 @@ GameObject:
   - component: {fileID: 1311053355}
   - component: {fileID: 1311053354}
   m_Layer: 5
-  m_Name: Health
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3952,11 +3952,11 @@ PrefabInstance:
     - target: {fileID: 8166928543650264844, guid: 957c2cfc80714f3468baa99d33aa3e89, type: 3}
       propertyPath: scoreText
       value: 
-      objectReference: {fileID: 1278067201}
+      objectReference: {fileID: 1311053354}
     - target: {fileID: 8166928543650264844, guid: 957c2cfc80714f3468baa99d33aa3e89, type: 3}
       propertyPath: healthText
       value: 
-      objectReference: {fileID: 1311053354}
+      objectReference: {fileID: 1278067201}
     - target: {fileID: 8166928543650264844, guid: 957c2cfc80714f3468baa99d33aa3e89, type: 3}
       propertyPath: PlayerMovement
       value: 

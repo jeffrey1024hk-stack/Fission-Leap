@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 24677629}
   - component: {fileID: 24677628}
   m_Layer: 5
-  m_Name: Health
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -930,7 +930,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4765257191321373766, guid: 03520b98a7891de4e982b4cbf3a064cf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.29
+      value: 2.89
       objectReference: {fileID: 0}
     - target: {fileID: 4765257191321373766, guid: 03520b98a7891de4e982b4cbf3a064cf, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2839,7 +2839,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1084457418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3708,11 +3708,11 @@ PrefabInstance:
     - target: {fileID: 8166928543650264844, guid: 957c2cfc80714f3468baa99d33aa3e89, type: 3}
       propertyPath: scoreText
       value: 
-      objectReference: {fileID: 2075126573}
+      objectReference: {fileID: 24677628}
     - target: {fileID: 8166928543650264844, guid: 957c2cfc80714f3468baa99d33aa3e89, type: 3}
       propertyPath: healthText
       value: 
-      objectReference: {fileID: 24677628}
+      objectReference: {fileID: 2075126573}
     - target: {fileID: 8166928543650264844, guid: 957c2cfc80714f3468baa99d33aa3e89, type: 3}
       propertyPath: PlayerMovement
       value: 
@@ -6131,7 +6131,7 @@ GameObject:
   - component: {fileID: 2075126574}
   - component: {fileID: 2075126573}
   m_Layer: 5
-  m_Name: Score
+  m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

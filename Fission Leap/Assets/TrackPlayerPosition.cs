@@ -51,6 +51,11 @@ public class TrackPlayerPosition : MonoBehaviour
                 cameraPos.x = -1.24f;
                 transform.position = cameraPos;
             }
+            if (cameraPos.y > 2.89)
+            {
+                cameraPos.y = 2.89f;
+                transform.position = cameraPos;
+            }
         }
 
             cameraPos = new Vector3(cameraPos.x, cameraPos.y, (float)-10);
