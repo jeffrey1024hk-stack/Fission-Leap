@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using System.Threading;
+using UnityEngine.SocialPlatforms.Impl;
 public class PlayerMovement : MonoBehaviour
 {
     public Vector3 playerPosition;
@@ -18,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
     public GameObject SpawnPoint;
     public int health;
     public int maxHealth;
-    public int score;
     public static Scene currentScene;
     public GameObject gameOverCanvas;
     public int maxJump;
@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public bool lookingRight;
     Animator anim;
     public bool TriggerPlayAgain;
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -132,14 +133,14 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (score < 0)
+        if (UIbehaviour.score < 0)
         {
-            score = 0;
+            UIbehaviour.score = 0;
         }
         if (health <= 0 )
         {
             gameOverCanvas.SetActive(true);
-            score = 0;
+            UIbehaviour.score = 0;
             health = maxHealth;
         }
         rb.velocity = new Vector2(0, rb.velocity.y);
@@ -198,7 +199,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (collision.gameObject.tag == "1 point giver")
         {
-            score += 1;
+            UIbehaviour.score += 1;
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.tag == "Next Level")
@@ -216,7 +217,7 @@ public class PlayerMovement : MonoBehaviour
         {
 
             touchingClimable = true;
-            Debug.Log("Can climb");
+            //Debug.Log("Can climb");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -224,7 +225,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Climable surface")
         {
             touchingClimable = false;
-            Debug.Log("Can't climb anymore");
+            //Debug.Log("Can't climb anymore");
         }
     }
     private void DirectionRight()

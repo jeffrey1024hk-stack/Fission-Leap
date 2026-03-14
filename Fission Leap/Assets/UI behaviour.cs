@@ -20,17 +20,18 @@ public class UIbehaviour : MonoBehaviour
     public Scene lastScene;
     public int activeSceneBuildIndex;
     public int nextSceneBuildIndex;
+    public static int score { get; set; }
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameOverCanvas.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         healthText.text = "Health: " + PlayerMovement.health.ToString();
-        scoreText.text = "Score: " + PlayerMovement.score.ToString();
+        scoreText.text = "Score: " + score.ToString();
         activeScene = SceneManager.GetActiveScene();
         activeSceneBuildIndex = activeScene.buildIndex;
         try
@@ -55,14 +56,16 @@ public class UIbehaviour : MonoBehaviour
     {
         gameOverCanvas.SetActive(false);
         PlayerMovement.health = PlayerMovement.maxHealth;
-        PlayerMovement.score = 0;
+        score = 0;
         player.transform.position = PlayerMovement.SpawnPoint.transform.position;
     }
 
     public void nextLevel()
     {
         SceneManager.LoadScene(nextSceneBuildIndex);
-        SceneManager.UnloadSceneAsync(activeSceneBuildIndex - 1);
+        player.transform.position = PlayerMovement.SpawnPoint.transform.position;
+
+        //SceneManager.UnloadSceneAsync(activeSceneBuildIndex - 1);
     }
     public void previousLevel()
     {
