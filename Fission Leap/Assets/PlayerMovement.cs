@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public bool touchingFloor;
     [SerializeField]
     public float walkSpeed;
-    private bool jumping;
+    public bool jumping;
     [SerializeField]
     public GameObject SpawnPoint;
     public int health;
@@ -110,8 +110,8 @@ public class PlayerMovement : MonoBehaviour
                 if (jumps < maxJump && jumping == false && rb.velocity.y <= 3)
                 {
                     jumping = true;
-                }
-                else
+                    jumps += 1;
+                } else
                 {
                     jumping = false;
                 }
@@ -171,6 +171,7 @@ public class PlayerMovement : MonoBehaviour
         {
             health = 999999;
         }
+        
     }
 
     private void FixedUpdate()
@@ -178,9 +179,10 @@ public class PlayerMovement : MonoBehaviour
         if (jumping == true)
         {
             rb.AddForce(Vector2.up * jumpForce * Time.deltaTime, ForceMode2D.Impulse);
+            //jumps += 1;
             //Debug.Log ("Jumped");
             jumping = false;
-            jumps += 1;
+
         }
         //if (touchingFloor = true)
         //{
@@ -196,6 +198,7 @@ public class PlayerMovement : MonoBehaviour
         {
             touchingFloor = true;
             jumps = 0;
+            jumping = false;
             anim.SetBool("IsFalling", false);
         }
     }

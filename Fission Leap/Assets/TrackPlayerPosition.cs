@@ -27,10 +27,10 @@ public class TrackPlayerPosition : MonoBehaviour
     {
         nextLevel = GameObject.FindWithTag("Next Level");
         cameraPos = Player.transform.position;
-
         if (cameraPos.y < 2.29)
         {
             cameraPos.y = 2.29f;
+            transform.position = cameraPos;
         }
         if (cameraPos.x < -9.7)
         {
@@ -42,6 +42,11 @@ public class TrackPlayerPosition : MonoBehaviour
             if (cameraPos.x > -1.36f)
             {
                 cameraPos.x = -1.36f;
+                transform.position = cameraPos;
+            }
+            if (cameraPos.y > 2.29)
+            {
+                cameraPos.y = 2.29f;
                 transform.position = cameraPos;
             }
         } else if (CurrentScene.buildIndex == 1)
