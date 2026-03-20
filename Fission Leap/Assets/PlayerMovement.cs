@@ -83,10 +83,6 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("MovingLeft", false);
             anim.SetBool("IsIdle", true);
         }
-        if (touchingFloor)
-        {
-            jumps = 0;
-        }
         if (climbing == true)
         {
             jumping = false;
