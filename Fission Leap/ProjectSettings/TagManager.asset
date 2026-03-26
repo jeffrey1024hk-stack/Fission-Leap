@@ -11,6 +11,7 @@ TagManager:
   - Next Level
   - Exit
   - PlayAgain
+  - Wall
   layers:
   - Default
   - TransparentFX

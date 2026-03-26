@@ -5,8 +5,11 @@ using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using System.Threading;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEditor;
+using UnityEngine.Rendering;
 public class PlayerMovement : MonoBehaviour
 {
+    public Bulletlogic bulletlogic;
     public Vector3 playerPosition;
     public Rigidbody2D rb;
     [SerializeField]
@@ -31,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
     Animator anim;
     public bool TriggerPlayAgain;
     public GameObject player;
+    public GameObject bullet;
+    public Vector2 bulletDirection;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,11 +51,14 @@ public class PlayerMovement : MonoBehaviour
         touchingClimable = false;
         anim = GetComponent<Animator>();
         anim.SetBool("LookingRight", true);
+        bulletDirection = new Vector2(99, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
+        // set up
+        
         transform.rotation = Quaternion.identity;
         if (touchingClimable == true && Input.GetKeyDown(KeyCode.F))
         {
@@ -58,6 +66,9 @@ public class PlayerMovement : MonoBehaviour
         }
         playerPosition = transform.position;
         playerPosition.z = -1;
+
+        //horizontal movement
+
         if (Input.GetAxis("Horizontal") > 0)
         {
             playerPosition.x += walkSpeed * Time.deltaTime;
@@ -83,6 +94,9 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("MovingLeft", false);
             anim.SetBool("IsIdle", true);
         }
+
+        //climbing logic
+
         if (climbing == true)
         {
             jumping = false;
@@ -113,6 +127,8 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+
+        //jumping logic
 
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
@@ -154,7 +170,17 @@ public class PlayerMovement : MonoBehaviour
         }
         rb.velocity = new Vector2(0, rb.velocity.y);
 
+        //knockback gun logic
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            bullet.transform.position = transform.position;
+            Instantiate(bullet);
+            
+        }
+
         //testing keybinds (get rid of for actual release)
+
         if (Input.GetKeyDown(KeyCode.Slash))
         {
             health = 0;
