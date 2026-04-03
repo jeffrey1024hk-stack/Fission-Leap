@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 8977150823436898376}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.90300167, y: -0.8860633, z: -1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -5.0356865, y: 0.32742, z: -4.6708}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -161,8 +161,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c19115c20840d4bbd9d4ef9cbb81a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPos: {x: 0, y: 0}
-  bulletSpeed: 0
+  bulletPos: {x: -0.72, y: 0}
+  bulletSpeed: 100
   bulletRb: {fileID: -1959298050071408346}
   PlayerMovement: {fileID: 64747031541638336, guid: 351ec6b34644a3644a20dc2c9d19fc33, type: 3}
   Player: {fileID: 1064074166945618363, guid: 351ec6b34644a3644a20dc2c9d19fc33, type: 3}
+  RotateToMouseRelativeToPlayer: {fileID: 3095676059210406769, guid: 351ec6b34644a3644a20dc2c9d19fc33, type: 3}
+  bulletDirection: {x: 0, y: 0}
+  hitMarker: {fileID: 5289331334378269877, guid: efb13c0df10522d4a910af8be3a8a36d, type: 3}

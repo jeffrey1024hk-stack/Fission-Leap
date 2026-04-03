@@ -8,6 +8,7 @@ public class Persistance : MonoBehaviour
     public UIbehaviour UIbehaviour;
     public AudioSource audioSource;
     public GameObject UIHandler;
+    public bool muted;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +20,27 @@ public class Persistance : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (muted == false)
+            {
+                muted = true;
+            } else
+            {
+                muted = false;
+            }
+        }
+        if (muted)
+        {
+            audioSource.volume = 0f;
+        } else
+        {
+            audioSource.volume = 0.3f;
+        }
         UIHandler = GameObject.Find("UI handler");
         UIbehaviour = UIHandler.GetComponent<UIbehaviour>();
         if (UIbehaviour.activeSceneBuildIndex < 2)
         {
-            audioSource.volume = 0.3f;
             audioSource.clip = BgmClips[0];
         }
     }

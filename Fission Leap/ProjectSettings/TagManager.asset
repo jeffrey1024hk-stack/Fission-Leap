@@ -12,6 +12,10 @@ TagManager:
   - Exit
   - PlayAgain
   - Wall
+  - Hit marker
+  - Get gun
+  - Recoil gun DisplayCase
+  - Recoil gun
   layers:
   - Default
   - TransparentFX

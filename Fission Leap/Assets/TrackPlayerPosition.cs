@@ -15,7 +15,7 @@ public class TrackPlayerPosition : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Player = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
@@ -59,6 +59,18 @@ public class TrackPlayerPosition : MonoBehaviour
             if (cameraPos.y > 2.89)
             {
                 cameraPos.y = 2.89f;
+                transform.position = cameraPos;
+            }
+        } else if (CurrentScene.buildIndex == 2)
+        {
+            if (cameraPos.x > -0.82)
+            {
+                cameraPos.x = -0.82f;
+                transform.position = cameraPos;
+            }
+            if (cameraPos.y > 2.29)
+            {
+                cameraPos.y = 2.29f;
                 transform.position = cameraPos;
             }
         }

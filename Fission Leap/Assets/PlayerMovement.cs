@@ -35,7 +35,10 @@ public class PlayerMovement : MonoBehaviour
     public bool TriggerPlayAgain;
     public GameObject player;
     public GameObject bullet;
-    public Vector2 bulletDirection;
+    private RotateToMouseRelativeToPlayer RotateToMouseRelativeToPlayer;
+    public bool hasGun;
+    public GameObject displayCaseGun;
+    public GameObject RecoilGun;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,14 +54,16 @@ public class PlayerMovement : MonoBehaviour
         touchingClimable = false;
         anim = GetComponent<Animator>();
         anim.SetBool("LookingRight", true);
-        bulletDirection = new Vector2(99, 0);
+        RotateToMouseRelativeToPlayer = gameObject.GetComponent<RotateToMouseRelativeToPlayer>();
+        displayCaseGun = GameObject.FindWithTag("Recoil gun DisplayCase");
+        RecoilGun = GameObject.FindWithTag("Recoil gun");
+        hasGun = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         // set up
-        
         transform.rotation = Quaternion.identity;
         if (touchingClimable == true && Input.GetKeyDown(KeyCode.F))
         {
@@ -66,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
         }
         playerPosition = transform.position;
         playerPosition.z = -1;
+
 
         //horizontal movement
 
@@ -128,6 +134,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+
         //jumping logic
 
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
@@ -171,12 +178,28 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(0, rb.velocity.y);
 
         //knockback gun logic
-
-        if (Input.GetKeyDown(KeyCode.E))
+        if (!touchingFloor && hasGun) {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                bullet.transform.position =  RecoilGun.transform.position;
+                Instantiate(bullet);
+            }
+        }
+        
+        if (hasGun)
         {
-            bullet.transform.position = transform.position;
-            Instantiate(bullet);
-            
+            RecoilGun.SetActive(true);
+            if (UIbehaviour.activeSceneBuildIndex == 2)
+            {
+                displayCaseGun.SetActive(false);
+            }
+        } else if (!hasGun)
+        {
+            if (UIbehaviour.activeSceneBuildIndex == 2)
+            {
+                displayCaseGun.SetActive(true);
+            }
+            RecoilGun.SetActive(false);
         }
 
         //testing keybinds (get rid of for actual release)
@@ -252,6 +275,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Exit")
         {
             TriggerPlayAgain = true;
+            Debug.Log("exit");
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -261,6 +285,14 @@ public class PlayerMovement : MonoBehaviour
 
             touchingClimable = true;
             //Debug.Log("Can climb");
+        }
+        if (collision.gameObject.tag == "Get gun")
+        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                hasGun = true;
+            }
+            //Debug.Log("Can get gun");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
