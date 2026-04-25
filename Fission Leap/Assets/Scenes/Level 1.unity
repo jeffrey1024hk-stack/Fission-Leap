@@ -1135,7 +1135,7 @@ GameObject:
   - component: {fileID: 665020260}
   - component: {fileID: 665020259}
   m_Layer: 0
-  m_Name: Capsule (2)
+  m_Name: Coin
   m_TagString: 1 point giver
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
